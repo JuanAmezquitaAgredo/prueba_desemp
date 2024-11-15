@@ -21,10 +21,6 @@ const StyledButton = styled.button`
     display: flex;         
     align-items: center;
     justify-content: center;
-
-    &:hover {
-        background-color: #545454;
-    }
 `;
 
 const IconWrapper = styled.span`

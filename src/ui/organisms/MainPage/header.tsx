@@ -1,4 +1,5 @@
 'use client'
+import ButtonsAddDownload from "@/ui/molecules/ButtonsAdd";
 import InpustFilter from "@/ui/molecules/InputsFilter";
 import styled from "styled-components"
 
@@ -8,8 +9,8 @@ const HeaderHomePageComponent = styled.header`
     padding: 15px;
     background-color: transparent;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 20px;
 `;
 
 
@@ -18,6 +19,7 @@ export default function HeaderMainPage() {
     return (
         <HeaderHomePageComponent>
             <InpustFilter/>
+            <ButtonsAddDownload/>
         </HeaderHomePageComponent>
     )
 }

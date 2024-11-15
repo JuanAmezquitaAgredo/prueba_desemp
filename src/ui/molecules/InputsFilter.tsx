@@ -37,6 +37,10 @@ const ButtonFilter = styled(Button)`
     color: #ffff;
     border-radius: 10px;
     border: none;
+
+    &:hover {
+        font-size: 17px;
+    }
 `;
 
 const ButtonClean = styled(Button)`
@@ -48,6 +52,10 @@ const ButtonClean = styled(Button)`
     color: #2F2B3D;
     border-radius: 10px;
     border: solid 1px #2F2B3D;
+
+    &:hover {
+        font-size: 17px;
+    }
 `;
 export default function InpustFilter() {
     const {
