@@ -6,5 +6,7 @@ export interface PMaintenance{
      */
 
     getMaintenance({size, page}: GetMaintenanRequest): Promise<GetMaintenanceResponse>
+
+    createMaintenance(maintenance: RegisterMainRequest ): Promise<RegisterMainResponse>
     
 }   

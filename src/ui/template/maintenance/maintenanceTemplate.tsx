@@ -5,6 +5,9 @@ import MainComponent from "@/ui/organisms/maintenance/maintenance";
 import styled from "styled-components"
 import { Icon } from '@iconify/react';
 import Button from "@/ui/atoms/button";
+import Modal from "@/ui/atoms/modal";
+import { useState } from "react";
+import RegisterForm from "@/ui/organisms/maintenance/formRegister";
 
 interface IProps {
     car: Car;
@@ -44,8 +47,15 @@ const ButtonAddCar = styled(Button)`
 `;
 
 export default function MainPage({ car, data }: IProps) {
+
+    const [ModalOpenRegister, setModalOpenRegister] = useState(false);
+
+    const toggleModalRegister = () => {
+        setModalOpenRegister(!ModalOpenRegister);
+    }
+
     const handleAdd = () => {
-        // Implementar la acción para agregar un vehículo
+        toggleModalRegister();
     }
 
     return (
@@ -56,6 +66,9 @@ export default function MainPage({ car, data }: IProps) {
                 <ButtonAddCar label="Agregar Vehiculo" icon={<Icon icon="lets-icons:add-duotone" width="30" height="30" color="#FFFF" />} onClick={handleAdd} />
             </ButtonAdd>
             <MainComponent data={data} />
+            <Modal isOpen={ModalOpenRegister} onClose={toggleModalRegister}>
+                <RegisterForm onClose={toggleModalRegister} />
+            </Modal>
         </PageContainer>
     )
 }
