@@ -10,7 +10,7 @@ const PageContainer = styled.div`
     justify-content: center;
     width: 100;
     height: 100vh;
-    background-image: #d1d1d1; 
+    background-image: #F5F5F5; 
 `;
 
 const ReturnhomePage = styled.div`

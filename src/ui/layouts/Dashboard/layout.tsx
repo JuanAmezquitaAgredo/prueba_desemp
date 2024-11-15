@@ -13,13 +13,13 @@ const StylesLayout = styled.div`
     display: flex;
     width: 100%;
     min-height: 100vh;
-    background-color: #d1d1d1;
+    background-color: #F5F5F5;
 `;
 
 const StyledMain = styled.main`
     display: flex;
     flex-direction: column;
-    background-color: #d1d1d1;
+    background-color: #F5F5F5;
 `;
 
 export default function Layout({ children }: ILayout) {

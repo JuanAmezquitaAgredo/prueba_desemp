@@ -3,9 +3,9 @@ import styled from "styled-components"
 
 
 const Header = styled.header`
-    background-color: #d1d1d1;
+    background-color: #F5F5F5;
     width: 83vw;
-    height: 10vh;
+    height: 20vh;
     display: flex;
     padding: 10px;
 `;
