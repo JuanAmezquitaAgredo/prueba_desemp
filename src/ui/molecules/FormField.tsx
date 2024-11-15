@@ -12,6 +12,8 @@ interface IpropsFormField<T extends FieldValues> {
     error?: FieldError;
     id?: string;
     placeholder?: string;
+    width?: string;
+    height?: string;
 }
 
 const FormFieldContainer = styled.div`
@@ -36,6 +38,8 @@ export const FormField = <T extends FieldValues>({
     error,
     id,
     placeholder,
+    width,
+    height,
 }: IpropsFormField<T>) => {
     return (
         <FormFieldContainer>
@@ -48,7 +52,9 @@ export const FormField = <T extends FieldValues>({
                         id={id || label.toLowerCase()}
                         type={type}
                         error={error?.message}
-                        placeholder={placeholder || `Ingrese su ${label.toLowerCase()}`}
+                        placeholder={placeholder || ``}
+                        width={width}
+                        height={height}
                         {...field}
                     />
                 )}
