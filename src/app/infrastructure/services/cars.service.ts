@@ -27,9 +27,9 @@ export class CarsServices implements PProjects {
       throw error;
     }
   }
-  async createCar(car: IRegisterCarRequest): Promise<IRegisterCarResponse> {
+  async createCar(car: FormData): Promise<IRegisterCarResponse> {
     try {
-      const response = await this.clientHttp.post<IRegisterCarResponse, IRegisterCarRequest>("vehicles", car);
+      const response = await this.clientHttp.post<IRegisterCarResponse, FormData>("vehicles", car, true);
       return response;
     } catch (error) {
       console.log(error);

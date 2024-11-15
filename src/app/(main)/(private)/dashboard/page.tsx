@@ -8,10 +8,10 @@ interface IProps {
 const useCarsService = new CarsServices();
 export default async function DashboardPage({ searchParams }: IProps) {
     const page = searchParams.page ? parseInt(searchParams.page.toString()) : 1;
-    const data = await useCarsService.getAllCars({page, size: 4});
+    const data = await useCarsService.getAllCars({ page, size: 4 });
     return (
         <>
-            <MainPage data={data}/>
+            <MainPage data={data} />
         </>
     );
 }

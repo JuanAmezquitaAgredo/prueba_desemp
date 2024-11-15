@@ -15,7 +15,7 @@ const PageContainer = styled.div`
 
 const BodyMainPage = styled.div`
     width: 100%;
-    height: 90%;
+    height: 75%;
     display: flex;
 `;
 export default function MainPage({data}: IProps) {

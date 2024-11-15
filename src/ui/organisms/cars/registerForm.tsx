@@ -8,6 +8,7 @@ import styled from "styled-components";
 import * as yup from "yup";
 import { useState } from "react";
 import { Icon } from '@iconify/react';
+import { FormFileField } from "@/ui/molecules/FormFileField";
 
 interface Iprops {
     onClose: () => void;
@@ -157,21 +158,6 @@ const RegisterForm = ({ onClose }: Iprops) => {
         resolver: yupResolver(registerCarSchema)
     });
 
-    const [file, setFile] = useState<File | null>(null);
-
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0] || null;
-        setFile(file);
-        if (file) {
-            setValue("file", file);
-        }
-    };
-
-    const handleFileCancel = () => {
-        setFile(null);
-        setValue("file", null);
-    };
-
     const handleRegister = async (data: IRegisterCarRequest) => {
         try {
             const formData = new FormData();
@@ -181,13 +167,13 @@ const RegisterForm = ({ onClose }: Iprops) => {
             formData.append("year", data.year);
             formData.append("licensePlate", data.licensePlate);
 
-            if (file) {
-                formData.append("file", file);
+            if (data.file) {
+                formData.append("file", data.file);
             } else {
                 console.warn("El archivo no es válido");
             }
-
-            const response = await fetch("/api/cars/post", {
+            console.log(formData);
+            const response = await fetch("/api/cars/create", {
                 method: "POST",
                 body: formData
             });
@@ -215,24 +201,12 @@ const RegisterForm = ({ onClose }: Iprops) => {
                 <BackIcon>
                     <Icon icon="carbon:camera" width="50" height="50" color="#a1a1a1" />
                 </BackIcon>
-                <input
-                    type="file"
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    id="fileInput"
-                    onChange={handleFileChange}
+                <FormFileField<IRegisterCarRequest>
+                    control={control}
+                    name="file"
+                    label="Imagen del Vehiculo"
+                    error={errors.file}
                 />
-                <label htmlFor="fileInput">
-                    <FileInputButton type="button">Cargar</FileInputButton>
-                </label>
-                {file && (
-                    <>
-                        <span>{file.name}</span>
-                        <FileCancelButton type="button" onClick={handleFileCancel}>
-                            Cancelar
-                        </FileCancelButton>
-                    </>
-                )}
             </FileInputContainer>
 
             <Sectionone>
