@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react";
 import { ErrorResponse, FieldError } from "@/app/core/application/dto/common/error-response.dto";
 import { useRouter } from "next/navigation";
 import FormField from "@/ui/molecules/FormField";
+import { Icon } from '@iconify/react';
 
 const loginSchema = yup.object().shape({
     email: yup
@@ -28,6 +29,7 @@ const FormContainer = styled.form`
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
     `;
 
@@ -35,14 +37,15 @@ const Title = styled.h2`
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
-    color: #1f1f1f;
+    color: #7692FF;
     `;
 
 const InstructionText = styled.p`
-    text-align: center;
-    font-size: 13px;    
+    text-align: start;
+    font-size: 12px;    
     margin-bottom: 1rem;
-    color: #666666;
+    font-weight: 600;
+    color: #2F2B3D;
 `;
 
 const Buttons = styled.div`
@@ -52,35 +55,17 @@ const Buttons = styled.div`
     align-items: center;
 `;
 
+const ButtonLogin = styled(Button)`
+    font-size: 15px;
+    width: 250px;
+    height: 40px;
+`;
+
 const ButtonForgotPassword = styled(Button)`
     font-size: 15px;
     background-color: transparent;
     border: none;
-    color: #0c8eff;
-    &:hover {
-        background-color: transparent;
-    }
-`;
-
-const DivButton = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-const PText = styled.p`
-    font-size: 15px;
-    color: #161616;
-    margin-right: 3px;
-`;
-
-const ButtonRegister = styled(Button)`
-    font-size: 15px;
-    width: auto;
-    padding: 0;
-    background-color: transparent;
-    border: none;
-    color: #0c8eff;
+    color: #2F2B3D;
     &:hover {
         background-color: transparent;
     }
@@ -139,15 +124,16 @@ const LoginForm = () => {
 
     return (
         <FormContainer onSubmit={handleSubmit(handleLogin)}>
-            <Title>Iniciar Sesión</Title>
-            <InstructionText>Ingresa tus credenciales para acceder a tu cuenta</InstructionText>
+            <Icon icon="fluent:vehicle-car-48-regular" width="50" height="50" color="#7692FF" />
+            <Title>Transport Solutions S.A</Title>
+            <InstructionText>Inicia sesion en tu cuenta y gestiona tu flota de vehiculos</InstructionText>
             <FormField<ILoginRequest>
                 control={control}
                 type="email"
                 name="email"
                 label="Correo Electrónico"
                 error={errors.email}
-                placeholder="Ingrese Correo Electrónico"
+                placeholder="tuempresa@dominio.com"
             />
             <FormField<ILoginRequest>
                 control={control}
@@ -155,15 +141,11 @@ const LoginForm = () => {
                 name="password"
                 label="Contraseña"
                 error={errors.password}
-                placeholder="Ingrese Contraseña"
+                placeholder=""
             />
-            <Button type="submit" label="Iniciar Sesión" />
+            <ButtonLogin type="submit" label="Iniciar Sesión" icon={<Icon icon="mingcute:lock-line" width="20" height="20" color="#FFFFFF" />} />
             <Buttons>
-                <ButtonForgotPassword label="¿Olvidaste tu Contraseña?" />
-                <DivButton>
-                    <PText>¿No tienes una cuenta? </PText>
-                    <ButtonRegister label="Registrate Aqui" />
-                </DivButton>
+                <ButtonForgotPassword label="¿Problemas para iniciar sesión? Contacta al administrador del sistema" />
             </Buttons>
         </FormContainer>
     );

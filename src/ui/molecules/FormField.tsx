@@ -23,7 +23,7 @@ const FormFieldContainer = styled.div`
 
 const Label = styled.label`
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 0.5rem;
     color: #202020
 `;

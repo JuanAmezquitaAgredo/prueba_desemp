@@ -2,7 +2,6 @@
 import LoginForm from "@/ui/organisms/auth/LoginForm";
 import styled from "styled-components";
 import Button from "@/ui/atoms/button";
-import { useRouter } from "next/navigation";
 
 const PageContainer = styled.div`
     display: flex;
@@ -11,7 +10,7 @@ const PageContainer = styled.div`
     justify-content: center;
     width: 100;
     height: 100vh;
-    background-image: linear-gradient(to bottom, #e6f0ff, #ffffff); 
+    background-image: #d1d1d1; 
 `;
 
 const ReturnhomePage = styled.div`
@@ -53,17 +52,8 @@ const CardContainer = styled.div`
 `;
 
 export default function LoginTemplate() {
-    const router = useRouter();
-
-    const HandleBack = () => {
-        router.push("/");
-    };
-    
     return (
         <PageContainer>
-            <ReturnhomePage>
-                <ButtonP label="Volver al inicio" onClick={HandleBack}/>
-            </ReturnhomePage>
             <ContainerLogin>
                 <CardContainer>
                     <LoginForm />
