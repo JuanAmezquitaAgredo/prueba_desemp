@@ -135,7 +135,7 @@ export default function SidebarDashboard() {
             <CaseIcon>
               <Icon icon="fluent:vehicle-car-32-filled" width="35" height="35" color="#ffff" />
             </CaseIcon>
-            <Link href="/dashboard/services" prefetch={false}>Vehiculos</Link>
+            <Link href="/dashboard" prefetch={false}>Vehiculos</Link>
           </StyledLinkWrapper>
         </SidebarItem>
         <SidebarItem>

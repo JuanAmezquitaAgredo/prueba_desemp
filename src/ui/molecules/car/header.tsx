@@ -8,13 +8,13 @@ interface CarProps {
 }
 
 const Component = styled.div`
-    width: 100%;
+    width: 97%;
     height: 229px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    background-color: #f5f5f5;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
