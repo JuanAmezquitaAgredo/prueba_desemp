@@ -134,6 +134,7 @@ const LoginForm = () => {
                 label="Correo Electrónico"
                 error={errors.email}
                 placeholder="tuempresa@dominio.com"
+                width="100%"
             />
             <FormField<ILoginRequest>
                 control={control}
@@ -142,6 +143,7 @@ const LoginForm = () => {
                 label="Contraseña"
                 error={errors.password}
                 placeholder=""
+                width="100%"
             />
             <ButtonLogin type="submit" label="Iniciar Sesión" icon={<Icon icon="mingcute:lock-line" width="20" height="20" color="#FFFFFF" />} />
             <Buttons>
