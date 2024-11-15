@@ -1,6 +1,9 @@
 'use client'
 import styled from "styled-components"
 
+interface IProps{
+    title: string;
+}
 
 const Header = styled.header`
     background-color: #F5F5F5;
@@ -24,11 +27,11 @@ const NameSection = styled.h2`
     font-weight: 700;
 `;
 
-export default function HeaderDashboard() {
+export default function HeaderDashboard({ title}: IProps) {
     return (
         <Header>
             <Titles>
-                <NameSection>Gestión de vehiculos</NameSection>
+                <NameSection>{title}</NameSection>
             </Titles>
         </Header>
     )

@@ -1,13 +1,10 @@
 'use client'
-import TableComponent from "@/ui/molecules/Table";
+import MaintenanceTableComponent from "@/ui/molecules/car/body";
 import { useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 
 interface MainProps {
-    onEdit?: (rowIndex: number) => void;
-    onView?: (rowId: number) => void;
-    onDelete?: (rowIndex: number) => void;
-    data: GetCarsResponse;
+    data: GetMaintenanceResponse
 }
 
 const Pagination = styled.div`
@@ -55,7 +52,7 @@ const PaginationButton = styled.button<{ isActive: boolean }>`
     }
 `;
 
-export default function MainComponent({ data, onEdit, onDelete, onView }: MainProps) {
+export default function MainComponent({ data }: MainProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -73,12 +70,11 @@ export default function MainComponent({ data, onEdit, onDelete, onView }: MainPr
     const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1); 
 
     const content = data.data;
-    const tbody = content;
 
     return (
         <MainContent>
             <StyledDiv>
-                <TableComponent tbody={tbody} onEdit={onEdit} onDelete={onDelete} onView={onView}/>
+                <MaintenanceTableComponent tbody={content}/>
             </StyledDiv>
             <Pagination>
                 {pageNumbers.map((page) => (
@@ -92,5 +88,5 @@ export default function MainComponent({ data, onEdit, onDelete, onView }: MainPr
                 ))}
             </Pagination>
         </MainContent>
-    )
+    );
 }

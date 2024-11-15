@@ -2,7 +2,6 @@
 import styled from "styled-components";
 import { Suspense } from "react";
 import Loading from "@/ui/atoms/loading";
-import HeaderDashboard from "@/ui/organisms/dashboard/header";
 import SidebarDashboard from "@/ui/organisms/dashboard/sidebar";
 
 interface ILayout {
@@ -28,7 +27,6 @@ export default function Layout({ children }: ILayout) {
             <SidebarDashboard />
             <StyledMain>
                 <Suspense fallback={<Loading />}>
-                    <HeaderDashboard />
                     {children}
                 </Suspense>
             </StyledMain>

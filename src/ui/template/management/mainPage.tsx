@@ -1,6 +1,8 @@
 'use client'
 import MainComponent from "@/ui/organisms/dashboard/cars";
+import HeaderDashboard from "@/ui/organisms/dashboard/header";
 import HeaderMainPage from "@/ui/organisms/MainPage/header";
+import { useRouter } from "next/navigation";
 import styled from "styled-components"
 
 interface IProps {
@@ -19,6 +21,9 @@ const BodyMainPage = styled.div`
     display: flex;
 `;
 export default function MainPage({data}: IProps) {
+
+    const router = useRouter();
+
     const handleEdit = (id: number) => {
         // Implement edit functionality here
     }
@@ -28,11 +33,12 @@ export default function MainPage({data}: IProps) {
     }
     
     const handleView = (id: number) => {
-        // Implement view functionality here
+        router.push(`/vehicle/${id}`); // Navigate to car detail page with the provided id
     }
     
     return (
         <PageContainer>
+            <HeaderDashboard title='Gestión de vehiculos'/>
             <HeaderMainPage/>
             <BodyMainPage>
                 <MainComponent data={data} onEdit={handleEdit} onDelete={handleDelete} onView={handleView}/>

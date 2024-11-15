@@ -1,5 +1,5 @@
 import { CarsServices } from "@/app/infrastructure/services/cars.service";
-import MainPage from "@/ui/template/main/mainPage";
+import MainPage from "@/ui/template/management/mainPage";
 
 interface IProps {
     searchParams: GetCarsRequest;
