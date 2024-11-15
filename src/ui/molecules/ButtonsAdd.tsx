@@ -1,6 +1,9 @@
 import styled from "styled-components"
 import Button from "../atoms/button";
 import { Icon } from '@iconify/react';
+import Modal from "../atoms/modal";
+import { useState } from "react";
+import RegisterForm from "../organisms/cars/registerForm";
 
 const ContainerButtons = styled.div`
     display: flex;
@@ -38,10 +41,23 @@ const ButtonDownloadreport = styled(Button)`
 `;
 
 export default function ButtonsAddDownload() {
+    const [ModalOpenRegister, setModalOpenRegister] = useState(false);
+
+    const toggleModalRegister = () => {
+        setModalOpenRegister(!ModalOpenRegister);
+    }
+
+    const handleAdd = () => {
+        toggleModalRegister();
+    }
+
     return (
         <ContainerButtons>
-            <ButtonAddCar label="Agregar Vehiculo" icon={<Icon icon="lets-icons:add-duotone" width="30" height="30" color="#FFFF" />} />
-            <ButtonDownloadreport label="Descargar reporte" icon={<Icon icon="uiw:file-excel" width="20" height="20" color="#FFFF" />}/>
+            <ButtonAddCar label="Agregar Vehiculo" icon={<Icon icon="lets-icons:add-duotone" width="30" height="30" color="#FFFF" />} onClick={handleAdd} />
+            <ButtonDownloadreport label="Descargar reporte" icon={<Icon icon="uiw:file-excel" width="20" height="20" color="#FFFF" />} />
+            <Modal isOpen={ModalOpenRegister} onClose={toggleModalRegister}>
+                <RegisterForm onClose={toggleModalRegister} />
+            </Modal>
         </ContainerButtons>
     )
 }

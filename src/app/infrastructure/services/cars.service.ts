@@ -27,6 +27,15 @@ export class CarsServices implements PProjects {
       throw error;
     }
   }
+  async createCar(car: IRegisterCarRequest): Promise<IRegisterCarResponse> {
+    try {
+      const response = await this.clientHttp.post<IRegisterCarResponse, IRegisterCarRequest>("vehicles", car);
+      return response;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 
   // async getProject(id: number): Promise<IProjectResponse> {
   //   try {
@@ -38,15 +47,6 @@ export class CarsServices implements PProjects {
   //   }
   // }
 
-  // async createProject(project: IRegisterProjectsRequest): Promise<IProjectsResponse> {
-  //   try {
-  //     const response = await this.clientHttp.post<IProjectsResponse, IRegisterProjectsRequest>("projects", project);
-  //     return response;
-  //   } catch (error) {
-  //     console.log(error);
-  //     throw error;
-  //   }
-  // }
 
   // async updateProject(id: number, project: IEditProjectsRequest): Promise<IEditProjectsResponse> {
   //   try {

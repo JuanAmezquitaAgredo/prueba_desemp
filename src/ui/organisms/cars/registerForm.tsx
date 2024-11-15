@@ -1,12 +1,17 @@
 'use client'
 import Button from "@/ui/atoms/button";
 import FormField from "@/ui/molecules/FormField";
-import { FormFileField } from "@/ui/molecules/FormFileField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import * as yup from "yup";
+import { useState } from "react";
+import { Icon } from '@iconify/react';
+
+interface Iprops {
+    onClose: () => void;
+}
 
 const registerCarSchema = yup.object().shape({
     make: yup
@@ -33,7 +38,6 @@ const registerCarSchema = yup.object().shape({
 
 const FormContainer = styled.form`
     width: 100%;
-    max-width: 24rem;
     margin: 0 auto;
     padding: 1rem;
     display: flex;
@@ -48,18 +52,125 @@ const Title = styled.h2`
     color: #202020;
 `;
 
-const RegisterForm = () => {
+const Sectionone = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const Sectiontwo = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const SectionButtons = styled.div`
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+`;
+
+const ButtonCancel = styled(Button)`
+    width: 250px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid black;
+    color: #2F2B3D;
+    font-weight: 600;
+    font-size: 16px;
+`;
+
+const ButtonSubmit = styled(Button)`
+    width: 250px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #7692FF;
+    color: #FFFF;
+    font-weight: 600;
+    font-size: 16px;
+`;
+
+const FileInputContainer = styled.div`
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 15px;
+`;
+
+const FileInputButton = styled.button`
+    width: 100px;
+    height: 40px;
+    background-color: #7692FF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    &:hover {
+        background-color: #5c7aee;
+    }
+`;
+
+const FileCancelButton = styled.button`
+    width: 100px;
+    height: 40px;
+    background-color: #FF7678;
+    color: #FFFF;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    &:hover {
+        background-color: #ff6265;
+    }
+`;
+
+const BackIcon = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+`;
+
+const RegisterForm = ({ onClose }: Iprops) => {
     const router = useRouter();
     const {
         control,
         handleSubmit,
         setError,
-        formState: { errors }
+        formState: { errors },
+        setValue
     } = useForm<IRegisterCarRequest>({
         mode: "onChange",
         reValidateMode: "onChange",
         resolver: yupResolver(registerCarSchema)
     });
+
+    const [file, setFile] = useState<File | null>(null);
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0] || null;
+        setFile(file);
+        if (file) {
+            setValue("file", file);
+        }
+    };
+
+    const handleFileCancel = () => {
+        setFile(null);
+        setValue("file", null);
+    };
 
     const handleRegister = async (data: IRegisterCarRequest) => {
         try {
@@ -70,12 +181,12 @@ const RegisterForm = () => {
             formData.append("year", data.year);
             formData.append("licensePlate", data.licensePlate);
 
-            if (data.file instanceof File) {
-                formData.append("file", data.file);
+            if (file) {
+                formData.append("file", file);
             } else {
                 console.warn("El archivo no es válido");
             }
-            
+
             const response = await fetch("/api/cars/post", {
                 method: "POST",
                 body: formData
@@ -86,6 +197,7 @@ const RegisterForm = () => {
             }
             alert('Vehículo registrado exitosamente');
             router.refresh();
+            onClose();
             console.log(response);
             return await response.json();
 
@@ -97,52 +209,85 @@ const RegisterForm = () => {
 
     return (
         <FormContainer onSubmit={handleSubmit(handleRegister)}>
-            <Title>Registro de Vehículo</Title>
+            <Title>Agregar nuevo vehiculo</Title>
 
-            <FormField<IRegisterCarRequest>
-                control={control}
-                type="text"
-                name="make"
-                label="Marca"
-                error={errors.make}
-                placeholder="Ingrese la marca"
-            />
+            <FileInputContainer>
+                <BackIcon>
+                    <Icon icon="carbon:camera" width="50" height="50" color="#a1a1a1" />
+                </BackIcon>
+                <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    id="fileInput"
+                    onChange={handleFileChange}
+                />
+                <label htmlFor="fileInput">
+                    <FileInputButton type="button">Cargar</FileInputButton>
+                </label>
+                {file && (
+                    <>
+                        <span>{file.name}</span>
+                        <FileCancelButton type="button" onClick={handleFileCancel}>
+                            Cancelar
+                        </FileCancelButton>
+                    </>
+                )}
+            </FileInputContainer>
 
-            <FormField<IRegisterCarRequest>
-                control={control}
-                type="text"
-                name="model"
-                label="Modelo"
-                error={errors.model}
-                placeholder="Ingrese el modelo"
-            />
+            <Sectionone>
+                <FormField<IRegisterCarRequest>
+                    control={control}
+                    type="text"
+                    name="make"
+                    label="Marca"
+                    error={errors.make}
+                    placeholder="Ingrese la marca"
+                    width="250px"
+                    height="47px"
+                />
 
-            <FormField<IRegisterCarRequest>
-                control={control}
-                type="text"
-                name="year"
-                label="Año"
-                error={errors.year}
-                placeholder="Ingrese el año"
-            />
+                <FormField<IRegisterCarRequest>
+                    control={control}
+                    type="text"
+                    name="model"
+                    label="Modelo"
+                    error={errors.model}
+                    placeholder="Ingrese el modelo"
+                    width="250px"
+                    height="47px"
+                />
+            </Sectionone>
 
-            <FormField<IRegisterCarRequest>
-                control={control}
-                type="text"
-                name="licensePlate"
-                label="Placa"
-                error={errors.licensePlate}
-                placeholder="Ingrese la placa"
-            />
+            <Sectiontwo>
+                <FormField<IRegisterCarRequest>
+                    control={control}
+                    type="text"
+                    name="year"
+                    label="Año"
+                    error={errors.year}
+                    placeholder="Ingrese el año"
+                    width="250px"
+                    height="47px"
+                />
 
-            <FormFileField<IRegisterCarRequest>
-                control={control}
-                name="file"
-                label="Foto del vehículo"
-                error={errors.file}
-            />
+                <FormField<IRegisterCarRequest>
+                    control={control}
+                    type="text"
+                    name="licensePlate"
+                    label="Placa"
+                    error={errors.licensePlate}
+                    placeholder="Ingrese la placa"
+                    width="250px"
+                    height="47px"
+                />
+            </Sectiontwo>
 
-            <Button type="submit" label="Registrar Vehículo" />
+            <SectionButtons>
+                <ButtonCancel type="button" label="Cancelar" onClick={onClose} />
+                <ButtonSubmit type="submit" label="Agregar" />
+            </SectionButtons>
+
         </FormContainer>
     );
 };

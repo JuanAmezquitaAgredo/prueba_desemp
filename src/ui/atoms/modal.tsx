@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface ModalProps {
-  title: string;
+  title?: string;
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
@@ -34,7 +34,7 @@ const ModalContent = styled.div`
   border: solid 1px white;
   padding: 10px;
   border-radius: 8px;
-  max-width: 380px;
+  max-width: 625px;
   width: 100%;
   max-height: 95vh;
   display: flex;
